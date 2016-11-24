@@ -54,16 +54,23 @@ def main(M, J, w, cooled, m):
     return {'solver': s, 'variables': p};
 
 
-ret = main(M=[8000] * 8, J=8, w=[700, 400, 1000, 2500, 200], cooled=3, m=[4, -1, 8, 10, 20])
+ret = main(M=[8000] * 8, J=8, w=[700, 400, 1000, 2500, 200], cooled=3, m=[4, 22, 8, 10, 20])
 
 s = ret['solver']
 p = ret['variables']
+pallets = {
+    0: 'nuzzles',
+    1: 'prittles',
+    2: 'skipples',
+    3: 'crottles',
+    4: 'dupples'
+}
 
 if s.check() == sat:
     m = s.model();
     for i, j,k in product(range(8), range(8), range(5)):
         if m.evaluate(p[i,j,k]):
-            print p[i,j,k]
+            print "Truck %d at %d has %s" % (i,j,pallets[k])
 else:
     print "Failed to solve"
 
