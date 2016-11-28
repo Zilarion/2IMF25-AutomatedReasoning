@@ -18,7 +18,7 @@ def main(M, J, w, cooled, m):
 
     SKIP = 2
     PRIT = 1
-    CROT =3
+    CROT = 3
     NUZ = 0
 
 
@@ -53,10 +53,16 @@ def main(M, J, w, cooled, m):
         if (m[k] >= 0):
             s.add(Sum([ If(p[i,j,k], 1, 0) for i, j in product(range(I), range(J))]) == m[k])
 
+    # 6) Prittles and crottles are an explosive combination: they are not allowed to be put in the same truck.
+    for i in range(I):
+        for j1, j2 in combinations(range(J), 2):
+            s.add(Not(And(p[i, j1, PRIT], p[i, j2, CROT])))
+            s.add(Not(And(p[i, j1, CROT], p[i, j2, PRIT])))
+
     return {'solver': s, 'variables': p};
 
 
-ret = main(M=[8000] * 8, J=8, w=[700, 400, 1000, 2500, 200], cooled=3, m=[4, 22, 8, 10, 20])
+ret = main(M=[8000] * 8, J=8, w=[700, 400, 1000, 2500, 200], cooled=3, m=[4, 19, 8, 10, 20])
 
 s = ret['solver']
 p = ret['variables']
@@ -67,6 +73,8 @@ pallets = {
     3: 'crottles',
     4: 'dupples'
 }
+
+# print (s.to_smt2());
 
 if s.check() == sat:
     m = s.model();
