@@ -81,5 +81,6 @@ while True:
 
 
 for i in range(n):
-    print i + 1, model.evaluate(vars[i])
+    val = int(str(model.evaluate(vars[i])))
+    print i + 1, ":", val, "-", r[i] 
 
