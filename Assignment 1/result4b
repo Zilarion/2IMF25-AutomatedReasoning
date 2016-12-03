@@ -1,0 +1,39 @@
+Running with T=0
+Running with T=1
+Running with T=2
+Running with T=3
+Running with T=4
+Running with T=5
+Running with T=6
+Running with T=7
+Running with T=8
+Running with T=9
+Running with T=10
+Running with T=11
+Running with T=12
+Running with T=13
+Running with T=14
+Running with T=15
+Running with T=16
+Running with T=17
+[1, 2, 3, 4, 5, 6, 7, 8]
+[1, 2, 3, 8, 5, 6, 7, 8]
+[1, 2, 10, 8, 5, 6, 7, 8]
+[1, 11, 10, 8, 5, 6, 7, 8]
+[1, 11, 19, 8, 5, 6, 7, 8]
+[1, 20, 19, 8, 5, 6, 7, 8]
+[1, 20, 28, 8, 5, 6, 7, 8]
+[1, 20, 28, 8, 5, 12, 7, 8]
+[1, 20, 28, 8, 5, 12, 20, 8]
+[1, 20, 28, 8, 5, 25, 20, 8]
+[1, 20, 28, 8, 5, 25, 33, 8]
+[1, 29, 28, 8, 5, 25, 33, 8]
+[1, 29, 28, 8, 5, 38, 33, 8]
+[1, 29, 28, 8, 46, 38, 33, 8]
+[1, 29, 28, 8, 46, 38, 46, 8]
+[1, 29, 37, 8, 46, 38, 46, 8]
+[1, 38, 37, 8, 46, 38, 46, 8]
+[1, 38, 46, 8, 46, 38, 46, 8]
+
+17
+[4, 3, 2, 3, 2, 3, 6, 7, 6, 7, 2, 6, 5, 7, 3, 2, 3]
