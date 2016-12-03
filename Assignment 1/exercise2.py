@@ -12,9 +12,9 @@ def main(W, H, C, p, d):
         # On chip
         s.add(And(
             x[i] >= 1,
-            x[i] + w[i] <= W,
+            x[i] + w[i] <= W + 1,
             y[i] >= 1,
-            y[i] + h[i] <= H,
+            y[i] + h[i] <= H + 1,
         ))
 
         # Size
@@ -43,29 +43,25 @@ def main(W, H, C, p, d):
 
     # Minimal distance between power components
     for i,j in combinations(range(p), 2):
-        s.add(And(
-            Or(
-                2 * x[i] + w[i] - (2 * x[j] + w[j]) >=  2 * d,
-                2 * x[j] + w[j] - (2 * x[i] + w[i]) >=  2 * d
-            ),
-            Or(
-                2 * y[i] + h[i] - (2 * y[j] + h[j]) >=  2 * d,
-                2 * y[j] + h[j] - (2 * y[i] + h[i]) >=  2 * d
-            )
+        s.add(Or(
+            2 * x[i] + w[i] - (2 * x[j] + w[j]) >=  2 * d,
+            2 * x[j] + w[j] - (2 * x[i] + w[i]) >=  2 * d,
+            2 * y[i] + h[i] - (2 * y[j] + h[j]) >=  2 * d,
+            2 * y[j] + h[j] - (2 * y[i] + h[i]) >=  2 * d
         ))
 
     return s, (x,y,w,h)
 
-d = 17;
 C = [(4, 3), (4, 3), (4, 5), (4, 6), (5, 20), (6, 9), (6, 10), (6, 11), (7, 8), (7, 12), (10, 10), (10, 20)]
 W = 30
 H = 30
-p=2
-n = len(C)
+p = 2
+d = 17
 s, vars = main(W, H, C, p, d)
 
 print(s.check())
 
+n = len(C)
 model = s.model()
 chips = range(1, p+1) + [chr(ord('A') + i) for i in range(n-p)]
 grid = [['.'] * W for _ in range(H)]
