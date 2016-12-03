@@ -27,7 +27,7 @@ def main(r, F, S, O, C, T):
             solver.add(s[j] >= s[i])
 
         # Containing
-        if C[i][j] or C[j][i]:
+        if C[i][j]:
             solver.add(And(s[j] >= s[i], s[j] + r[j] <= s[i] + r[i]))
 
     for i, j in combinations(range(n), 2):
@@ -47,31 +47,31 @@ S = [[False for j in range(n)] for i in range(n)]
 O = [[False for j in range(n)] for i in range(n)]
 C = [[False for j in range(n)] for i in range(n)]
 
-F[2][0] = True
-F[2][1] = True
+F[0][2] = True
+F[1][2] = True
 
-F[4][2] = True
-F[4][3] = True
+F[2][4] = True
+F[3][4] = True
 
-F[6][2] = True
-F[6][3] = True
-F[6][4] = True
+F[2][6] = True
+F[3][6] = True
+F[4][6] = True
 
-S[7][4] = True
+S[4][7] = True
 
-F[8][4] = True
-F[8][7] = True
+F[4][8] = True
+F[7][8] = True
 
-F[10][9] = True
+F[9][10] = True
 
-F[11][8] = True
-F[11][10] = True
+F[8][11] = True
+F[10][11] = True
 
 O[4][6] = True
 O[4][9] = True
 O[6][9] = True
 
-C[11][5]
+C[11][5] = True
 
 T = None
 
@@ -88,5 +88,6 @@ while True:
 
 
 for i in range(n):
-    print i + 1, model.evaluate(vars[i])
+    val = int(str(model.evaluate(vars[i])))
+    print i + 1, "(", r[i], ")", ":", val, "-", val + r[i] 
 
