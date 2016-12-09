@@ -1,0 +1,23 @@
+MODULE main
+VAR
+a1 : -1000..1000;
+a2 : -1000..1000;
+a3 : -1000..1000;
+a4 : -1000..1000;
+a5 : -1000..1000;
+a6 : -1000..1000;
+a7 : -1000..1000;
+a8 : -1000..1000;
+i : 2..7;
+INIT
+a1 = 1 & a2 = 2 & a3 = 3 & a4 = 4 & a5 = 5 & a6 = 6 & a7 = 7 & a8 = 8
+TRANS
+  next(i) = 2 ? next(a2) = a1 + a3 : a2 = a2
+& next(i) = 3 ? next(a3) = a2 + a4 : a3 = a3
+& next(i) = 4 ? next(a4) = a3 + a5 : a4 = a4
+& next(i) = 5 ? next(a5) = a4 + a6 : a5 = a5
+& next(i) = 6 ? next(a6) = a5 + a7 : a6 = a6
+& next(i) = 7 ? next(a7) = a6 + a8 : a7 = a7
+& next(a1) = a1
+& next(a8) = a8
+LTLSPEC G !(a3 = a7)
