@@ -20,4 +20,4 @@ TRANS
 & (next(i) = 7 ? next(a7) = a6 + a8 : next(a7) = a7)
 & next(a1) = a1
 & next(a8) = a8
-LTLSPEC G !(a3 = a7)
+LTLSPEC G !(a3 = a5 & a3 = a7 & a5 = a7)

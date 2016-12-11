@@ -28,5 +28,5 @@ def main(a0, e):
     print('LTLSPEC G !(%s)' % ' & '.join(['a%d = a%d' % (i, j) for i, j in combinations(e, 2)]))
 
 a0 = rng(8)
-e = [3, 7]
+e = [3, 5, 7]
 main(a0, e)
