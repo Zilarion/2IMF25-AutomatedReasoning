@@ -55,7 +55,7 @@ F[3][4] = True
 
 F[2][6] = True
 F[3][6] = True
-F[4][6] = True
+F[5][6] = True
 
 S[4][7] = True
 
@@ -89,5 +89,5 @@ while True:
 
 for i in range(n):
     val = int(str(model.evaluate(vars[i])))
-    print i + 1, "(", r[i], ")", ":", val, "-", val + r[i] 
+    print i + 1, "(", r[i], ")", ":", val, "-", val + r[i]
 
