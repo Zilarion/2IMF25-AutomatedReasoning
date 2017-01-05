@@ -1,0 +1,85 @@
+============================== prooftrans ============================
+Prover9 (32) version Dec-2007, Dec 2007.
+Process 49957 was started by ruudandriessen on Ruuds-MacBook-Pro.local,
+Thu Jan  5 10:31:24 2017
+The command was "/Users/ruudandriessen/Downloads/Prover9-Mace4-v05B.app/Contents/Resources/bin-mac-intel/prover9".
+============================== end of head ===========================
+
+============================== end of input ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 1 at 0.00 (+ 0.00) seconds.
+% Length of proof is 12.
+% Level of proof is 6.
+% Maximum clause weight is 11.
+% Given clauses 11.
+
+2 I * x = x # label(non_clause) # label(goal).  [goal].
+5 x * (y * z) = (x * y) * z.  [assumption].
+6 (x * y) * z = x * (y * z).  [copy(5),flip(a)].
+7 x * I = x.  [assumption].
+8 x * inv(x) = I.  [assumption].
+10 I * c3 != c3.  [deny(2)].
+13 x * (I * y) = x * y.  [para(7(a,1),6(a,1,1)),flip(a)].
+14 x * (inv(x) * y) = I * y.  [para(8(a,1),6(a,1,1)),flip(a)].
+19 I * inv(inv(x)) = x.  [para(8(a,1),14(a,1,2)),rewrite([7(2)]),flip(a)].
+21 x * inv(inv(y)) = x * y.  [para(19(a,1),6(a,2,2)),rewrite([7(2)])].
+22 I * x = x.  [para(19(a,1),13(a,2)),rewrite([21(5),13(4)])].
+23 $F.  [resolve(22,a,10,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 2 at 0.00 (+ 0.00) seconds.
+% Length of proof is 14.
+% Level of proof is 8.
+% Maximum clause weight is 11.
+% Given clauses 15.
+
+3 inv(inv(x)) = x # label(non_clause) # label(goal).  [goal].
+5 x * (y * z) = (x * y) * z.  [assumption].
+6 (x * y) * z = x * (y * z).  [copy(5),flip(a)].
+7 x * I = x.  [assumption].
+8 x * inv(x) = I.  [assumption].
+11 inv(inv(c4)) != c4.  [deny(3)].
+13 x * (I * y) = x * y.  [para(7(a,1),6(a,1,1)),flip(a)].
+14 x * (inv(x) * y) = I * y.  [para(8(a,1),6(a,1,1)),flip(a)].
+19 I * inv(inv(x)) = x.  [para(8(a,1),14(a,1,2)),rewrite([7(2)]),flip(a)].
+21 x * inv(inv(y)) = x * y.  [para(19(a,1),6(a,2,2)),rewrite([7(2)])].
+22 I * x = x.  [para(19(a,1),13(a,2)),rewrite([21(5),13(4)])].
+26 x * (inv(x) * y) = y.  [back_rewrite(14),rewrite([22(5)])].
+30 inv(inv(x)) = x.  [para(8(a,1),26(a,1,2)),rewrite([7(2)]),flip(a)].
+31 $F.  [resolve(30,a,11,a)].
+
+============================== end of proof ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 3 at 0.00 (+ 0.00) seconds.
+% Length of proof is 15.
+% Level of proof is 9.
+% Maximum clause weight is 11.
+% Given clauses 16.
+
+4 inv(x) * x = I # label(non_clause) # label(goal).  [goal].
+5 x * (y * z) = (x * y) * z.  [assumption].
+6 (x * y) * z = x * (y * z).  [copy(5),flip(a)].
+7 x * I = x.  [assumption].
+8 x * inv(x) = I.  [assumption].
+12 inv(c5) * c5 != I.  [deny(4)].
+13 x * (I * y) = x * y.  [para(7(a,1),6(a,1,1)),flip(a)].
+14 x * (inv(x) * y) = I * y.  [para(8(a,1),6(a,1,1)),flip(a)].
+19 I * inv(inv(x)) = x.  [para(8(a,1),14(a,1,2)),rewrite([7(2)]),flip(a)].
+21 x * inv(inv(y)) = x * y.  [para(19(a,1),6(a,2,2)),rewrite([7(2)])].
+22 I * x = x.  [para(19(a,1),13(a,2)),rewrite([21(5),13(4)])].
+26 x * (inv(x) * y) = y.  [back_rewrite(14),rewrite([22(5)])].
+30 inv(inv(x)) = x.  [para(8(a,1),26(a,1,2)),rewrite([7(2)]),flip(a)].
+34 inv(x) * x = I.  [para(30(a,1),8(a,1,2))].
+35 $F.  [resolve(34,a,12,a)].
+
+============================== end of proof ==========================

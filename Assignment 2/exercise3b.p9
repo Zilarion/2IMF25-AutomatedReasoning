@@ -1,0 +1,26 @@
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+x * (y * z) = ((x * y) * z) .
+x * I = x .
+x * inv(x) = I .
+
+end_of_list.
+
+formulas(goals).
+
+x * y = y * x . 
+I * x = x .
+inv(inv(x)) = x .
+inv(x) * x = I .
+
+end_of_list.
