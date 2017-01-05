@@ -8,29 +8,29 @@ def main(W, H, C, p, d):
 
     s = Solver()
 
-    for i in range(n):
-        # On chip
-        s.add(And(
-            x[i] >= 1,
-            x[i] + w[i] <= W + 1,
-            y[i] >= 1,
-            y[i] + h[i] <= H + 1,
-        ))
+    # for i in range(n):
+    #     # On chip
+    #     s.add(And(
+    #         x[i] >= 1,
+    #         x[i] + w[i] <= W + 1,
+    #         y[i] >= 1,
+    #         y[i] + h[i] <= H + 1,
+    #     ))
 
-        # Size
-        s.add(Or(
-            And(w[i] == C[i][0], h[i] == C[i][1]),
-            And(w[i] == C[i][1], h[i] == C[i][0])
-        ))
+    #     # Size
+    #     s.add(Or(
+    #         And(w[i] == C[i][0], h[i] == C[i][1]),
+    #         And(w[i] == C[i][1], h[i] == C[i][0])
+    #     ))
 
     # No overlap
-    for i,j in combinations(range(n), 2):
-        s.add(Or(
-            x[i] + w[i] <= x[j],
-            x[j] + w[j] <= x[i],
-            y[i] + h[i] <= y[j],
-            y[j] + h[j] <= y[i]
-        ))
+    # for i,j in combinations(range(n), 2):
+    #     s.add(Or(
+    #         x[i] + w[i] <= x[j],
+    #         x[j] + w[j] <= x[i],
+    #         y[i] + h[i] <= y[j],
+    #         y[j] + h[j] <= y[i]
+    #     ))
 
     # Connected to power component
     for i in range(p, n):
@@ -42,13 +42,13 @@ def main(W, H, C, p, d):
         ) for j in range(p)]))
 
     # Minimal distance between power components
-    for i,j in combinations(range(p), 2):
-        s.add(Or(
-            2 * x[i] + w[i] - (2 * x[j] + w[j]) >=  2 * d,
-            2 * x[j] + w[j] - (2 * x[i] + w[i]) >=  2 * d,
-            2 * y[i] + h[i] - (2 * y[j] + h[j]) >=  2 * d,
-            2 * y[j] + h[j] - (2 * y[i] + h[i]) >=  2 * d
-        ))
+    # for i,j in combinations(range(p), 2):
+    #     s.add(Or(
+    #         2 * x[i] + w[i] - (2 * x[j] + w[j]) >=  2 * d,
+    #         2 * x[j] + w[j] - (2 * x[i] + w[i]) >=  2 * d,
+    #         2 * y[i] + h[i] - (2 * y[j] + h[j]) >=  2 * d,
+    #         2 * y[j] + h[j] - (2 * y[i] + h[i]) >=  2 * d
+    #     ))
 
     return s, (x,y,w,h)
 
@@ -59,7 +59,8 @@ p = 2
 d = 17
 s, vars = main(W, H, C, p, d)
 
-print(s.check())
+print(s.to_smt2())
+exit()
 
 n = len(C)
 model = s.model()
