@@ -1,0 +1,30 @@
+============================== prooftrans ============================
+Prover9 (32) version Dec-2007, Dec 2007.
+Process 49721 was started by ruudandriessen on Ruuds-MacBook-Pro.local,
+Thu Jan  5 10:20:51 2017
+The command was "/Users/ruudandriessen/Downloads/Prover9-Mace4-v05B.app/Contents/Resources/bin-mac-intel/prover9".
+============================== end of head ===========================
+
+============================== end of input ==========================
+
+============================== PROOF =================================
+
+% -------- Comments from original proof --------
+% Proof 1 at 0.00 (+ 0.00) seconds.
+% Length of proof is 10.
+% Level of proof is 3.
+% Maximum clause weight is 17.
+% Given clauses 3.
+
+1 a(p,a(q,a(p,a(q,a(p,a(q,p)))))) = a(p,q) # label(non_clause) # label(goal).  [goal].
+2 a(x,x) = x.  [assumption].
+3 a(x,y) = a(y,x).  [assumption].
+4 a(x,a(y,z)) = a(a(x,y),z).  [assumption].
+5 a(a(x,y),z) = a(x,a(y,z)).  [copy(4),flip(a)].
+6 a(p,a(q,a(p,a(q,a(p,a(q,p)))))) != a(p,q).  [deny(1)].
+7 a(p,a(q,a(p,a(q,a(p,a(p,q)))))) != a(p,q).  [copy(6),rewrite([3(8)])].
+9 a(x,a(x,y)) = a(x,y).  [para(2(a,1),5(a,1,1)),flip(a)].
+10 a(x,a(y,x)) = a(y,x).  [para(2(a,1),5(a,2,2)),rewrite([3(2)])].
+13 $F.  [back_rewrite(7),rewrite([9(9),10(8),9(7),10(6),9(5)]),xx(a)].
+
+============================== end of proof ==========================
