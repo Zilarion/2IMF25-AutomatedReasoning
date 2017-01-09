@@ -1,0 +1,17 @@
+Running for n=1
+Running for n=2
+Running for n=3
+Running for n=4
+Running for n=5
+Running for n=6
+Running for n=7
+Running for n=8
+Solution for n=8
+0:     a:1; b:3
+1:     a:6; b:2
+2:     a:; b:
+3:     a:; b:7
+4:     a:2; b:
+5:     a:6,7; b:
+6: [F] a:; b:
+7: [F] a:; b:5

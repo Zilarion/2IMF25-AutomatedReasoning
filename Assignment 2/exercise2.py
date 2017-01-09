@@ -1,26 +1,23 @@
-from itertools import combinations, permutations, product
+from itertools import product
 from z3 import *
 
-def loop():
+def loop(*args):
     n = 1
     while True:
         print 'Running for n=%d' % n
-        solver, vars = main(n)
+        solver, vars = main(n, *args)
 
         if solver.check() == sat:
             print 'Solution for n=%d' % n
-            return solver, vars
+            return solver, n, vars
 
         n += 1
 
 
-def main(n):
+def main(n, Sigma, L, l):
     solver = Solver()
 
-    Sigma = ['a', 'b']
-    L = ['aa', 'bb', 'baa', 'abab', 'babb', 'bbba']
-
-    Delta = {(i, sigma, j): Bool('Delta[%d, %s, %d]' % (i, sigma, j)) for (i, j), sigma in product(permutations(range(n), 2), Sigma)}
+    Delta = {(i, sigma, j): Bool('Delta[%d, %s, %d]' % (i, sigma, j)) for (i, j), sigma in product(product(range(n), repeat=2), Sigma)}
     F = {i: Bool('F[%d]' % i) for i in range(n)}
 
     T = set([w[0:i] for w in L for i in range(len(L)+1)])
@@ -35,7 +32,7 @@ def main(n):
 
     for t in T:
         for sigma in Sigma:
-            for i, j in permutations(range(n), 2):
+            for i, j in product(range(n), repeat=2):
                 if sigma in X[t]:
                     # All incoming reachable
                     solver.add(
@@ -47,7 +44,7 @@ def main(n):
                             R[t+sigma, j]
                         )
                     )
-                elif len(t) < 4:
+                elif len(t) < l:
                     # All outgoing allowed
                     solver.add(
                         Implies(
@@ -63,7 +60,7 @@ def main(n):
                     R[t, i],
                     Delta[i, sigma, j]
                 )
-                for i, j in permutations(range(n), 2)
+                for i, j in product(range(n), repeat=2)
             ]))
 
         # Finishing behaviour
@@ -77,5 +74,11 @@ def main(n):
 
     return solver, (Delta, F)
 
-solver, (Delta, F) = loop()
-print solver.model()
+Sigma = ['a', 'b']
+L = ['aa', 'bb', 'baa', 'abab', 'babb', 'bbba']
+l = 4
+
+solver, n, (Delta, F) = loop(Sigma, L, l)
+model = solver.model()
+for i in range(n):
+    print '%d: %s %s' % (i, '[F]' if str(model[F[i]]) == 'True' else '   ', '; '.join(['%s:%s' % (sigma, ','.join([str(j) for j in range(n) if str(model[Delta[i, sigma, j]]) == 'True'])) for sigma in Sigma]))
