@@ -71,7 +71,7 @@ def main(x, C, C_truck, F_0, T_0, S_0, D, cyclic=False):
                 And(S[s-1] == i, S[s] == j),
                 And([
                     F[j, s-1] - D[i][j] >=0,
-                    F[j, s] == F[j, s-1] - D[i][j]# + A[s]
+                    F[j, s] == F[j, s-1] - D[i][j] + A[s]
                 ] + [F[k, s] == F[k, s-1] - D[i][j] for k in rng(n) if k != j]),
             ))
     for i, s in product(rng(0, n), rng(x)):
