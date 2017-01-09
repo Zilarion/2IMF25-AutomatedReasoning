@@ -1,0 +1,57 @@
+Assignment A
+---
+Running for x=1
+Running for x=2
+Running for x=3
+Running for x=4
+Running for x=5
+Running for x=6
+Running for x=7
+Running for x=8
+Running for x=9
+Running for x=10
+Running for x=11
+Running for x=12
+Running for x=13
+Running for x=14
+Running for x=15
+Running for x=16
+Running for x=17
+Running for x=18
+Running for x=19
+Running for x=20
+Running for x=21
+Running for x=22
+Solution for x=22
+
+
+Assignment B
+---
+Running for x=1
+Running for x=2
+Running for x=3
+Running for x=4
+Running for x=5
+Running for x=6
+Running for x=7
+Running for x=8
+Running for x=9
+Running for x=10
+Running for x=11
+Running for x=12
+Running for x=13
+Solution for x=13
+Start loop at 3
+Step 1: S=1, A=36
+Step 2: S=2, A=39
+Step 3: S=4, A=129
+Step 4: S=3, A=56
+Step 5: S=0, A=-260
+Step 6: S=1, A=45
+Step 7: S=2, A=157
+Step 8: S=3, A=58
+Step 9: S=0, A=-168
+Step 10: S=1, A=112
+Step 11: S=0, A=-200
+Step 12: S=3, A=43
+Step 13: S=4, A=157

@@ -29,6 +29,7 @@ def main(x, C, C_truck, F_0, T_0, S_0, D, cyclic=False):
     T = {s: Int('T_%d' % s) for s in rng(0, x)}
     S = {s: Int('S_%d' % s) for s in rng(0, x)}
     A = {s: Int('A_%d' % s) for s in rng(x)}
+    L = Int('L')
 
      # The state should be valid
     for s in rng(x):
@@ -87,14 +88,18 @@ def main(x, C, C_truck, F_0, T_0, S_0, D, cyclic=False):
 
     if cyclic:
         solver.add(Or([
-            And([
-                S[x] == S[s],
-                T[x] == T[s]
-            ] + [F[i, x] == F[i, s] for i in rng(n)]
-            ) for s in rng(x-1)
+            And(
+                [
+                    L == s,
+                    S[x] == S[s],
+                    T[x] == T[s]
+                ] \
+                + [F[i, x] == F[i, s] for i in rng(n)]
+            )
+            for s in rng(x-1)
         ]))
 
-    return solver, (F, T, S, A)
+    return solver, (F, T, S, A, L)
 
 # Capacity per village
 C = [120, 160, 100, 160]
@@ -123,7 +128,7 @@ D = [
 # Assignment A
 print 'Assignment A'
 print '---'
-s, _ = loop(unsat, C, C_truck, F_0, T_0, S_0, D)
+loop(unsat, C, C_truck, F_0, T_0, S_0, D)
 print ''
 print ''
 
@@ -132,4 +137,8 @@ print 'Assignment B'
 print '---'
 C_truck = 260
 T_0 = 260
-solver, (F, T, S, A) = loop(sat, C, C_truck, F_0, T_0, S_0, D, cyclic=True)
+solver, (F, T, S, A, L) = loop(sat, C, C_truck, F_0, T_0, S_0, D, cyclic=True)
+model = solver.model()
+print 'Start loop at %s' % str(model[L])
+for i in rng(len(A)):
+    print 'Step %s: S=%s, A=%s' % (i, model[S[i]], model[A[i]])
