@@ -88,7 +88,7 @@ t = [2 if (i%2 == 1) else 2 for i in range(I)]
 
 model = None
 
-T = 3
+T = 5
 while True:
   print "Testing with a max delay of", T;
   solv, vars = main(pl, sr, s, at, t, l, T)
