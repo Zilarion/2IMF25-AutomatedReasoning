@@ -42,6 +42,9 @@ def main(pl, sr, s, at, t, l, T):
   # All planes must have landed/taken off after their arrival/departure time
   solver.add(And([a[i] >= at[i] + t[i] for i in range(I)]))
 
+  # Two runways may never be used at the same time
+  solver.add(And([Implies(Or(And(r[i] == 3-1, r[ip] == 4-1), And(r[i] == 2-1, r[ip] == 4-1)), Or(a[i] + t[i] <= a[ip], a[ip] + t[ip] <= a[i])) for i, ip in permutations(range(I), 2)]))  
+
   # Each planes has a maximum of T delay
   solver.add(And([a[i] - t[i] - at[i] <= T for i in range(I)]))
 
@@ -85,7 +88,7 @@ t = [2 if (i%2 == 1) else 2 for i in range(I)]
 
 model = None
 
-T = 5
+T = 3
 while True:
   print "Testing with a max delay of", T;
   solv, vars = main(pl, sr, s, at, t, l, T)
