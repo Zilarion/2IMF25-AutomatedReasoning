@@ -1,7 +1,7 @@
 from itertools import combinations, product, permutations
 from z3 import *
 
-def main(pl, sr, s, at, t, l):
+def main(pl, sr, s, at, t, l, T):
   """
   Parameters
   ----------
@@ -11,6 +11,7 @@ def main(pl, sr, s, at, t, l):
   at: arrival time of planes
   t: time to process this plane
   l: length of each runway
+  T: maximum delay
   """
   I = len(at);
   J = len(sr);
@@ -38,8 +39,11 @@ def main(pl, sr, s, at, t, l):
   # Two runways may never be used at the same time
   solver.add(And([Implies(And(r[i] == j, r[ip] == j), Or(a[i] + t[i] <= a[ip], a[ip] + t[ip] <= a[i])) for i, ip in permutations(range(I), 2) for j in range(J)]))  
 
-  # All planes must land after their arrival/departure time
-  solver.add(And([a[i] >= at[i] for i in range(I)]))
+  # All planes must have landed/taken off after their arrival/departure time
+  solver.add(And([a[i] >= at[i] + t[i] for i in range(I)]))
+
+  # Each planes has a maximum of T delay
+  solver.add(And([a[i] - t[i] - at[i] <= T for i in range(I)]))
 
   return solver, (a, r)
 
@@ -77,17 +81,23 @@ s[40 - 1] = True
 
 
 # The time it takes for this plane to land/take off -> 3 for even plane numbers (i-1) / 4 for odd 
-t = [1 if (i%2 == 1) else 1 for i in range(I)]
+t = [2 if (i%2 == 1) else 2 for i in range(I)]
 
 model = None
 
-# while True: <-- re-add when actually optimizing
-solv, vars = main(pl, sr, s, at, t, l)
+T = 5
+while True:
+  print "Testing with a max delay of", T;
+  solv, vars = main(pl, sr, s, at, t, l, T)
 
-if solv.check() != sat:
-  print('unsat')
+  if solv.check() != sat:
+    print "unsat!"
+    break
+  T = T - 1;
 
-model = solv.model()
+  model = solv.model()
+  break;
+
 for i in range(I):
   go = int(str(model.evaluate(vars[0][i])))
   runway = int(str(model.evaluate(vars[1][i])))
