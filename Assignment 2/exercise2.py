@@ -24,7 +24,7 @@ def main(n, Sigma, L, l):
     X = {t: set([sigma for sigma in Sigma if (t+sigma) in T]) for t in T}
     Xf = {t: t in L for t in T}
 
-    R = {(t, i): Bool('O[%s, %d]' % (t, i)) for t, i in product(T, range(n))}
+    R = {(t, i): Bool('R[%s, %d]' % (t, i)) for t, i in product(T, range(n))}
 
     solver.add(R['', 0] == True)
     for i in range(1, n):
@@ -75,10 +75,11 @@ def main(n, Sigma, L, l):
     return solver, (Delta, F)
 
 Sigma = ['a', 'b']
-L = ['aa', 'bb', 'baa', 'abab', 'babb', 'bbba']
+L = ['aa', 'bb', 'aba', 'baa', 'abab', 'babb', 'bbba']
 l = 4
 
 solver, n, (Delta, F) = loop(Sigma, L, l)
+# print solver.to_smt2()
 model = solver.model()
 for i in range(n):
     print '%d: %s %s' % (i, '[F]' if str(model[F[i]]) == 'True' else '   ', '; '.join(['%s:%s' % (sigma, ','.join([str(j) for j in range(n) if str(model[Delta[i, sigma, j]]) == 'True'])) for sigma in Sigma]))

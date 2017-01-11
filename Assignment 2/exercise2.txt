@@ -6,12 +6,14 @@ Running for n=5
 Running for n=6
 Running for n=7
 Running for n=8
-Solution for n=8
-0:     a:1; b:3
-1:     a:6; b:2
-2:     a:; b:
-3:     a:; b:7
-4:     a:2; b:
-5:     a:6,7; b:
-6: [F] a:; b:
-7: [F] a:; b:5
+Running for n=9
+Solution for n=9
+0:     a:6; b:2
+1:     a:; b:3,7,8
+2:     a:5; b:8
+3: [F] a:; b:
+4:     a:3; b:1
+5:     a:3; b:
+6:     a:3; b:5
+7: [F] a:; b:7,8
+8: [F] a:; b:5
