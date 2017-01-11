@@ -8,12 +8,12 @@ Running for n=7
 Running for n=8
 Running for n=9
 Solution for n=9
-0:     a:6; b:2
-1:     a:; b:3,7,8
-2:     a:5; b:8
-3: [F] a:; b:
-4:     a:3; b:1
-5:     a:3; b:
-6:     a:3; b:5
-7: [F] a:; b:7,8
-8: [F] a:; b:5
+0:     a:3,7; b:1
+1:     a:5; b:4,7
+2:     a:4; b:
+3:     a:4; b:8
+4: [F] a:; b:
+5:     a:4; b:6
+6:     a:; b:4
+7:     a:; b:2
+8:     a:6; b:
