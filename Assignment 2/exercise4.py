@@ -30,22 +30,22 @@ def main(pl, sr, s, at, t, l, T):
   # All planes must land before 10:00
   solver.add(And([a[i] + t[i] <= 60 for i in range(I)]))
 
-  # All planes must land on a runway which is long enough
+  # # All planes must land on a runway which is long enough
   solver.add(And([Implies(r[i] == j, pl[i] <= l[j]) for i in range(I) for j in range(J)]))
 
-  # Special planes have to land on a spot runway
+  # # Special planes have to land on a spot runway
   solver.add(And([Implies(r[i] == j, Or(Not(s[i]), sr[j])) for i in range(I) for j in range(J)]))
 
-  # Two runways may never be used at the same time
+  # # Two runways may never be used at the same time
   solver.add(And([Implies(And(r[i] == j, r[ip] == j), Or(a[i] + t[i] <= a[ip], a[ip] + t[ip] <= a[i])) for i, ip in permutations(range(I), 2) for j in range(J)]))  
 
-  # All planes must have landed/taken off after their arrival/departure time
+  # # All planes must have landed/taken off after their arrival/departure time
   solver.add(And([a[i] >= at[i] + t[i] for i in range(I)]))
 
-  # Two runways may never be used at the same time
+  # # Two runways may never be used at the same time
   solver.add(And([Implies(Or(And(r[i] == 3-1, r[ip] == 4-1), And(r[i] == 2-1, r[ip] == 4-1)), Or(a[i] + t[i] <= a[ip], a[ip] + t[ip] <= a[i])) for i, ip in permutations(range(I), 2)]))  
 
-  # Each planes has a maximum of T delay
+  # # Each planes has a maximum of T delay
   solver.add(And([a[i] - t[i] - at[i] <= T for i in range(I)]))
 
   return solver, (a, r)
@@ -101,7 +101,19 @@ while True:
   model = solv.model()
   break;
 
+runnames = ["Polderbaan", "Kaagbaan", "Buitenveldertbaan", "Aalsmeerbaan", "Zwanenburgbaan", "Oostbaan"]
 for i in range(I):
+  if (i%2 == 0):
+    continue;
   go = int(str(model.evaluate(vars[0][i])))
   runway = int(str(model.evaluate(vars[1][i])))
-  print i + 1, "leaves/arrives at 9:%d from runway %d" % (go, runway)
+
+  print i + 1, "& 9:%d & %s \\\\" % (go, runnames[runway])
+
+for i in range(I):
+  if (i%2 == 1):
+    continue;
+  go = int(str(model.evaluate(vars[0][i])))
+  runway = int(str(model.evaluate(vars[1][i])))
+
+  print i + 1, "& 9:%d & %s \\\\" % (go, runnames[runway])
